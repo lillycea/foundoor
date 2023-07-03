@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "749320363362",
+    "project_id": "foundoor-ebbd3",
+    "storage_bucket": "foundoor-ebbd3.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:749320363362:android:a88b197bc133c3ea93203b",
+        "android_client_info": {
+          "package_name": "com.project.foundoor"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "749320363362-cme5puvckpebuuqie05ctuo4jdj7m1qd.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCakpAISgS2CmpAYaETso_dJg1I1-9At_U"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "749320363362-cme5puvckpebuuqie05ctuo4jdj7m1qd.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
