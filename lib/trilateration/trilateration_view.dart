@@ -21,37 +21,41 @@ class TrilaterationView extends StatelessWidget {
         builder: (controller) {
           return SingleChildScrollView(
             child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const SizedBox(height: 20),
-                StreamBuilder<List<ScanResult>>(
-                  stream: controller.scanResults,
+                Padding(padding: const EdgeInsets.all(20),
+                    child: Text("Map", style: Theme.of(context).textTheme.headlineMedium!.copyWith(color: ColorConstants.appColor, fontWeight: FontWeight.w600))),
+                StreamBuilder<List<SelectedDevice>>(
+                  stream: controller.selectedDevicesStream,
                   builder: (context, snapshot) {
                     if (snapshot.hasData) {
-                      final selectedDevices = controller.selectedDeviceIdxList.map((index) => snapshot.data![index]).toList();
+                      final selectedDevices = snapshot.data!;
                       return ListView.builder(
                         shrinkWrap: true,
                         physics: const ScrollPhysics(),
                         itemCount: selectedDevices.length,
                         itemBuilder: (context, index) {
-                          final data = selectedDevices.elementAt(index);
+                          final selectedDevice = selectedDevices[index];
+                          final data = selectedDevice.result;
                           final deviceName = data.device.name.isNotEmpty ? data.device.name : data.advertisementData.localName;
                           final title = 'Device ${index + 1}${deviceName.isNotEmpty ? ': $deviceName' : ''}';
-                          double alpha = controller.selectedRSSI[index].toDouble();
-                          String rssi = controller.selectedRSSI[index].toString();
+
+                          double alpha = selectedDevice.rssi.toDouble();
+                          String rssi = selectedDevice.rssi.toString();
                           num distance = logDistancePathLoss(rssi, alpha);
-                          controller.selectedDistanceList[index] = distance;
+
+                          selectedDevice.distance = distance;
                           return ExpansionTile(
                             leading: const CircleAvatar(
                               backgroundColor: Colors.transparent,
                               child: Icon(
-                                Icons.bluetooth_searching,
+                                Icons.radar,
                                 color: Colors.blue,
                               ),
                             ),
                             title: Text(title),
                             subtitle: Text("MAC: " + data.device.id.id),
-                            trailing: Text('${distance.toStringAsPrecision(3)} m',
-                                style: const TextStyle(color: Colors.black)),
+                            trailing: Text('${distance.toStringAsPrecision(3)} m'),
                             children: <Widget>[
                               ListTile(
                                 title: Column(
@@ -62,11 +66,10 @@ class TrilaterationView extends StatelessWidget {
                                       child: SpinBox(
                                         min: -100,
                                         max: -30,
-                                        value: controller.selectedRSSI[index].toDouble(),
+                                        value: selectedDevice.rssi.toDouble(),
                                         decimals: 0,
                                         step: 1,
-                                        onChanged: (value) => controller
-                                            .selectedRSSI[index] = value.toInt(),
+                                        onChanged: (value) => selectedDevice.rssi = value.toInt(),
                                         decoration: const InputDecoration(labelText: 'RSSI at 1m'),
                                       ),
                                     ),
@@ -75,11 +78,11 @@ class TrilaterationView extends StatelessWidget {
                                       child: SpinBox(
                                         min: 0.0,
                                         max: 20.0,
-                                        value: controller.selectedCenterXList[index].toDouble(),
+                                        value: selectedDevice.centerX,
                                         decimals: 1,
                                         step: 0.1,
                                         onChanged: (value) =>
-                                        controller.selectedCenterXList[index] = value,
+                                        selectedDevice.centerX = value,
                                         decoration: const InputDecoration(labelText: 'Center X [m]'),
                                       ),
                                     ),
@@ -88,11 +91,11 @@ class TrilaterationView extends StatelessWidget {
                                       child: SpinBox(
                                         min: 0.0,
                                         max: 20.0,
-                                        value: controller.selectedCenterYList[index].toDouble(),
+                                        value: selectedDevice.centerY,
                                         decimals: 1,
                                         step: 0.1,
                                         onChanged: (value) =>
-                                        controller.selectedCenterYList[index] = value,
+                                        selectedDevice.centerY = value,
                                         decoration: const InputDecoration(labelText: 'Center Y [m]'),
                                       ),
                                     ),

@@ -1,72 +1,62 @@
 import 'package:flutter_blue_plus/flutter_blue_plus.dart';
-import 'package:get/get_state_manager/src/simple/get_controllers.dart';
+import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
+class SelectedDevice {
+  final ScanResult result;
+  bool flag;
+  int rssi;
+  double centerX;
+  double centerY;
+  num distance;
+
+  SelectedDevice({
+    required this.result,
+    this.flag = false,
+    this.rssi = -60,
+    this.centerX = 2.0,
+    this.centerY = 2.0,
+    this.distance = 0.0,
+  });
+}
 class BluetoothController extends GetxController {
   List<ScanResult> results = [];
-  List<bool> flagList = [];
-  List<int> selectedDeviceIdxList = [];
-  List<String> selectedDeviceNameList = [];
-  List<int> selectedRSSI = [];
-  List<double> selectedCenterXList = [];
-  List<double> selectedCenterYList = [];
-  List<num> selectedDistanceList = [];
+  List<SelectedDevice> selectedDevices = [];
+  List<String> activated = [];
 
   FlutterBluePlus flutterBluePlus = FlutterBluePlus.instance;
 
   void scanDevices() async {
     flutterBluePlus.startScan(timeout: const Duration(seconds: 15));
-    flutterBluePlus.scanResults = results;
-  }
-
-  void scan() async {
-    // Listen to scan results
-    flutterBluePlus.scanResults.listen((results) {
-      // do something with scan results
-      this.results = results;
-      // update state
-    });
   }
 
   Stream<List<ScanResult>> get scanResults => flutterBluePlus.scanResults;
 
   void initBLEList() {
-    flagList = [];
-    selectedDeviceIdxList = [];
-    selectedDeviceNameList = [];
-    selectedRSSI = [];
-    selectedCenterXList = [];
-    selectedCenterYList = [];
-    selectedDistanceList = [];
+    selectedDevices = [];
   }
 
+  void updateDeviceList({required ScanResult scanResult}) {
+    final selectedDevice = new SelectedDevice(result: scanResult);
 
-  void updateFlagList({required bool flag, required int index}) {
-    flagList[index] = flag;
-    update();
-  }
-
-  void updateSelectedDeviceIdxList() {
-    flagList.asMap().forEach((index, element) {
-      if (element == true) {
-        if (!selectedDeviceIdxList.contains(index)) {
-          selectedDeviceIdxList.add(index);
-          selectedRSSI.add(-60);
-          selectedCenterXList.add(2.0);
-          selectedCenterYList.add(2.0);
-          selectedDistanceList.add(0.0);
-        }
-      } else {
-        int idx = selectedDeviceIdxList.indexOf(index);
-        if (idx != -1) {
-          selectedDeviceIdxList.remove(index);
-          selectedDeviceNameList.removeAt(idx);
-          selectedRSSI.removeAt(idx);
-          selectedCenterXList.removeAt(idx);
-          selectedCenterYList.removeAt(idx);
-          selectedDistanceList.removeAt(idx);
-        }
+    print("device selezionati - 2" + selectedDevice.toString());
+      if (!selectedDevices.contains(selectedDevice)) {
+        selectedDevices.add(selectedDevice);
+        print("device selezionati -3 " + selectedDevice.toString());
       }
-    });
     update();
   }
+
+  Future updateActivate({required ScanResult result}) async {
+    final selectedDevice = new SelectedDevice(result: result);
+
+    print("updateActivate - device selezionati - 2" + selectedDevice.toString());
+    if (!selectedDevices.any((device) => device.result == selectedDevice.result)) {
+      selectedDevices.add(selectedDevice);
+      print("updateActivate - device selezionati holy-iot -3 " + selectedDevice.toString());
+    }
+    WidgetsBinding.instance!.addPostFrameCallback((_) => update());
   }
+
+  Stream<List<SelectedDevice>> get selectedDevicesStream => Stream.value(selectedDevices);
+}

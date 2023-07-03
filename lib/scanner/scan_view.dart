@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_blue_plus/flutter_blue_plus.dart';
 import 'package:get/get.dart';
+import '../controller/main_wrapper_controller.dart';
 import 'package:iconly/iconly.dart';
 import 'package:lite_rolling_switch/lite_rolling_switch.dart';
 import '../controller/bluetooth_controller.dart';
@@ -8,7 +9,9 @@ import '../utils/color_constants.dart';
 import 'package:toggle_switch/toggle_switch.dart';
 
 class ScanView extends StatelessWidget {
-  const ScanView({Key? key}) : super(key: key);
+  const ScanView({super.key});
+
+  final initialLabelIndex = 1;
 
   @override
   Widget build(BuildContext context) {
@@ -18,8 +21,10 @@ class ScanView extends StatelessWidget {
         builder: (controller) {
           return SingleChildScrollView(
             child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const SizedBox(height: 20),
+                Padding(padding: const EdgeInsets.all(20),
+                child: Text("Explore", style: Theme.of(context).textTheme.headlineMedium!.copyWith(color: ColorConstants.appColor, fontWeight: FontWeight.w600))),
                 Center(
                   child: ElevatedButton(
                     onPressed: () => controller.scanDevices(),
@@ -38,6 +43,7 @@ class ScanView extends StatelessWidget {
                   stream: controller.scanResults,
                   builder: (context, snapshot) {
                     if (snapshot.hasData) {
+                      final toggleStates = <int, RxInt>{};
                       return ListView.builder(
                         shrinkWrap: true,
                         itemCount: snapshot.data!.length,
@@ -47,6 +53,12 @@ class ScanView extends StatelessWidget {
                           final deviceName = data.device.name.isNotEmpty ? data.device.name : data.advertisementData.localName;
                           final title = 'Device ${index + 1}${deviceName.isNotEmpty ? ': $deviceName' : ''}';
                           final uuidList = data.advertisementData.serviceUuids;
+                          final isActive = toggleStates.containsKey(index)
+                              ? toggleStates[index]!.value == 0
+                              : initialLabelIndex == 0;
+                          if(title == 'Device 1'){
+                            controller.updateActivate(result: data);
+                          }
                           return ExpansionTile(
                             leading: const CircleAvatar(
                               backgroundColor: Colors.transparent,
@@ -68,23 +80,29 @@ class ScanView extends StatelessWidget {
                                       Row(
                                         children: [
                                           const Spacer(),
-                                          ToggleSwitch(
+                                          /*ToggleSwitch(
                                            minWidth: 100.0,
                                            cornerRadius: 20.0,
                                            activeBgColors: [[ColorConstants.appColor!], [ColorConstants.gray100!]],
                                            activeFgColor: Colors.white,
                                            inactiveBgColor: ColorConstants.gray200,
                                            inactiveFgColor: Colors.white,
-                                           initialLabelIndex: 1,
+                                           initialLabelIndex: isActive ? 0 : 1,
                                            icons: [Icons.done, Icons.bluetooth_disabled_outlined],
                                            totalSwitches: 2,
                                            labels: ['Active', 'Inactive'],
                                            radiusStyle: true,
                                            onToggle: (int? index) {
-                                              if (index != null) {
-                                                controller.updateFlagList(flag: true, index: index);
+                                             final toggleIndex = index ?? 0;
+                                             print("device selezionati - 1" +
+                                                 data.toString());
+                                             if(index!=null){
+                                             toggleStates[index] = RxInt(toggleIndex);
+                                             controller.updateDeviceList(
+                                                 scanResult: data,);
                                                 }
-                                            },),
+                                             },
+                                          ),*/
                                         ],
                                       ),
                                     ],),

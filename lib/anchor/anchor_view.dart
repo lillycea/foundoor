@@ -4,6 +4,7 @@ import 'package:path_provider/path_provider.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'dart:io';
+import '../utils/color_constants.dart';
 
 class AnchorView extends StatefulWidget {
   const AnchorView({Key? key}) : super(key: key);
@@ -46,23 +47,27 @@ class _AnchorViewState extends State<AnchorView> {
     return Scaffold(
       body: SingleChildScrollView(
         child: Container(
-          alignment: Alignment.center,
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
+              Padding(padding: const EdgeInsets.all(20),
+                  child: Text("Upload", style: Theme.of(context).textTheme.headlineMedium!.copyWith(color: ColorConstants.appColor, fontWeight: FontWeight.w600))),
               if (_image != null) Image.file(File(_image!.path)),
               const SizedBox(height: 10),
-              CustomButton(
-                title: 'Sfoglia',
-                icon: Icons.photo,
-                onClick: getImage,
-              ),
+              Center(
+                child: CustomButton(
+                  title: 'Sfoglia',
+                  icon: Icons.photo,
+                  onClick: getImage,
+                ),),
               const SizedBox(height: 10),
-              CustomButton(
+              Center(child: CustomButton(
                 title: 'Carica',
                 icon: Icons.upload,
                 onClick: uploadFile,
-              ),
+              ),),
+
             ],
           ),
         ),
