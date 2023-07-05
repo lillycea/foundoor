@@ -7,7 +7,6 @@ class GridWidget extends StatelessWidget {
   final CustomPainter foreground;
 
   const GridWidget(this.foreground, {Key? key}) : super(key: key);
-  //const GridWidget({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

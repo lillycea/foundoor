@@ -9,7 +9,7 @@ class Themes {
       brightness: Brightness.light,
       appBarTheme: AppBarTheme(
           titleTextStyle:
-          const TextStyle(color: Colors.black, fontWeight: FontWeight.w600),
+              const TextStyle(color: Colors.black, fontWeight: FontWeight.w600),
           iconTheme: const IconThemeData(color: Colors.black),
           backgroundColor: Colors.grey.shade50,
           elevation: 0),
@@ -23,7 +23,7 @@ class Themes {
       ),
       cardColor: Colors.grey.shade200,
       progressIndicatorTheme:
-      const ProgressIndicatorThemeData(color: Colors.red),
+          const ProgressIndicatorThemeData(color: Colors.red),
       textTheme: TextTheme(
           headline1: const TextStyle(
               letterSpacing: -1.5,
@@ -97,7 +97,7 @@ class Themes {
         )),
     cardColor: ColorConstants.gray700,
     progressIndicatorTheme:
-    const ProgressIndicatorThemeData(color: Colors.white),
+        const ProgressIndicatorThemeData(color: Colors.white),
     textTheme: TextTheme(
         headline1: TextStyle(
             letterSpacing: -1.5,

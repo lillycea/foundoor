@@ -12,8 +12,8 @@ class ColorConstants {
   static Color gray800 = hexToColor('#121313');
   static Color gray900 = hexToColor('#0e0f0f');
   static Color textFieldBgColor = const Color(0xfff7faf9);
-  static Color appColor = hexToColor('#4192DD');
-
+  static Color appColor = const Color(0xFF336B87);
+  //hexToColor('#336B87');
 }
 
 Color hexToColor(String hex) {

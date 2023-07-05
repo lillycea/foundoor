@@ -1,5 +1,5 @@
-import 'package:flutter_blue_plus/flutter_blue_plus.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_blue_plus/flutter_blue_plus.dart';
 import 'package:get/get.dart';
 
 class SelectedDevice {
@@ -19,6 +19,7 @@ class SelectedDevice {
     this.distance = 0.0,
   });
 }
+
 class BluetoothController extends GetxController {
   List<ScanResult> results = [];
   List<SelectedDevice> selectedDevices = [];
@@ -27,36 +28,20 @@ class BluetoothController extends GetxController {
   FlutterBluePlus flutterBluePlus = FlutterBluePlus.instance;
 
   void scanDevices() async {
-    flutterBluePlus.startScan(timeout: const Duration(seconds: 15));
+    flutterBluePlus.startScan(scanMode: const ScanMode(1), allowDuplicates: true);
   }
 
   Stream<List<ScanResult>> get scanResults => flutterBluePlus.scanResults;
 
-  void initBLEList() {
-    selectedDevices = [];
-  }
-
-  void updateDeviceList({required ScanResult scanResult}) {
-    final selectedDevice = new SelectedDevice(result: scanResult);
-
-    print("device selezionati - 2" + selectedDevice.toString());
-      if (!selectedDevices.contains(selectedDevice)) {
-        selectedDevices.add(selectedDevice);
-        print("device selezionati -3 " + selectedDevice.toString());
-      }
-    update();
-  }
-
   Future updateActivate({required ScanResult result}) async {
-    final selectedDevice = new SelectedDevice(result: result);
-
-    print("updateActivate - device selezionati - 2" + selectedDevice.toString());
-    if (!selectedDevices.any((device) => device.result == selectedDevice.result)) {
+    final selectedDevice = SelectedDevice(result: result);
+    if (!selectedDevices.any((device) =>
+        device.result.device.id == selectedDevice.result.device.id)) {
       selectedDevices.add(selectedDevice);
-      print("updateActivate - device selezionati holy-iot -3 " + selectedDevice.toString());
     }
     WidgetsBinding.instance!.addPostFrameCallback((_) => update());
   }
 
-  Stream<List<SelectedDevice>> get selectedDevicesStream => Stream.value(selectedDevices);
+  Stream<List<SelectedDevice>> get selectedDevicesStream =>
+      Stream.value(selectedDevices);
 }

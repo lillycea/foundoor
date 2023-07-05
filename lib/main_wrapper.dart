@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
-
 import 'package:get/get.dart';
-import 'package:iconly/iconly.dart';
 import 'package:zoom_tap_animation/zoom_tap_animation.dart';
-import 'package:foundoor/menu/side_menu.dart';
+
 import 'controller/main_wrapper_controller.dart';
 import 'utils/color_constants.dart';
 
@@ -11,7 +9,7 @@ class MainWrapper extends StatelessWidget {
   MainWrapper({super.key});
 
   final MainWrapperController _mainWrapperController =
-  Get.find<MainWrapperController>();
+      Get.find<MainWrapperController>();
 
   final ValueNotifier<bool> _isMenuOpen = ValueNotifier<bool>(false);
 
@@ -19,35 +17,21 @@ class MainWrapper extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(
-          "Foundoor",
-          style: Theme.of(context).textTheme.subtitle1,
+        title: Image.asset(
+          'assets/images/logo.png',
+          width: 120,
         ),
         centerTitle: true,
-        leading: IconButton(
-          icon: ImageIcon(AssetImage('assets/icons/menu.png')),
-          onPressed: () {
-            // Apri il menu laterale
-            showModalBottomSheet<void>(
-              context: context,
-              isScrollControlled: true,
-              builder: (BuildContext context) {
-                return SideMenu();
-              },
-            );
-          },
-        ),
         actions: [
           Obx(
-                () => Switch.adaptive(
-              value: _mainWrapperController.isDarkTheme.value,
-              onChanged: (newVal) {
-                _mainWrapperController.isDarkTheme.value = newVal;
-                _mainWrapperController
-                    .switchTheme(newVal ? ThemeMode.dark : ThemeMode.light);
-              },
-              activeColor: ColorConstants.appColor
-            ),
+            () => Switch.adaptive(
+                value: _mainWrapperController.isDarkTheme.value,
+                onChanged: (newVal) {
+                  _mainWrapperController.isDarkTheme.value = newVal;
+                  _mainWrapperController
+                      .switchTheme(newVal ? ThemeMode.dark : ThemeMode.light);
+                },
+                activeColor: ColorConstants.appColor),
           )
         ],
       ),
@@ -57,10 +41,14 @@ class MainWrapper extends StatelessWidget {
         child: Container(
           padding: const EdgeInsets.all(11),
           margin: const EdgeInsets.symmetric(horizontal: 25, vertical: 23),
-          decoration: BoxDecoration(color: _mainWrapperController.isDarkTheme.value ? ColorConstants.appColor.withOpacity(0.4) : const Color(0XFF17203A).withOpacity(0.8),
-          borderRadius: BorderRadius.all(Radius.circular(24))),
+          decoration: BoxDecoration(
+              color:
+                  //_mainWrapperController.isDarkTheme.value ?
+                  ColorConstants.appColor.withOpacity(0.9),
+              //: hexToColor('#126D76').withOpacity(0.8),
+              borderRadius: BorderRadius.all(Radius.circular(24))),
           child: Obx(
-                () => Row(
+            () => Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 _bottomAppBarItem(
@@ -75,10 +63,7 @@ class MainWrapper extends StatelessWidget {
                     context,
                     label: "Upload"),
                 _bottomAppBarItem(
-                    icon: Icons.map_outlined,
-                    page: 2,
-                    context,
-                    label: "Map")
+                    icon: Icons.map_outlined, page: 2, context, label: "Map")
               ],
             ),
           ),
@@ -106,10 +91,12 @@ class MainWrapper extends StatelessWidget {
           children: [
             Container(
               margin: EdgeInsets.only(bottom: 2),
-              height: 3,
-              width: _mainWrapperController.currentPage == page ? 20 : 0,
+              height: 2,
+              width: _mainWrapperController.currentPage == page ? 25 : 0,
               decoration: BoxDecoration(
-                  color: _mainWrapperController.isDarkTheme.value ? Colors.white : ColorConstants.appColor, borderRadius: BorderRadius.all(Radius.circular(2))),),
+                  color: Colors.white,
+                  borderRadius: BorderRadius.all(Radius.circular(2))),
+            ),
             Icon(
               icon,
               color: Colors.white,

@@ -53,6 +53,7 @@ dependencies:
   matrix2d: ^1.0.2
   lite_rolling_switch: ^1.0.1
   image_picker: ^1.0.0
+  image_cropper: ^2.0.3
   path_provider: ^2.0.15
   photo_view: ^0.14.0
   cloud_firestore: ^4.8.2
@@ -78,7 +79,10 @@ dev_dependencies:
 flutter:
   assets:
     - assets/icons/menu.png
-    - assets/icons/chat.png
+    - assets/images/logo.png
+    - assets/images/logo-splash-screen.png
+    - assets/images/splash-screen-logo.png
+    - assets/images/drop-file.png
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in
   # the material Icons class.

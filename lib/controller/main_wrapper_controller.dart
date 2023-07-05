@@ -1,19 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:foundoor/upload/upload_view.dart';
 import 'package:get/get.dart';
-
+import '../upload/upload_view.dart';
 import '../scanner/scan_view.dart';
-import '../anchor/anchor_view.dart';
 import '../trilateration/trilateration_view.dart';
+import 'bluetooth_controller.dart';
 
 class MainWrapperController extends GetxController {
   late PageController pageController;
-
+  BluetoothController bluetoothController = BluetoothController();
   RxInt currentPage = 0.obs;
   RxBool isDarkTheme = false.obs;
 
   List<Widget> pages = [
     const ScanView(),
-    const AnchorView(),
+    const UploadView(),
     const TrilaterationView(),
   ];
 
@@ -27,11 +28,11 @@ class MainWrapperController extends GetxController {
     currentPage.value = page;
     pageController.jumpToPage(page);
   }
+
   void animateToTab(int page) {
     currentPage.value = page;
     pageController.animateToPage(page,
-        duration: const Duration(milliseconds: 300),
-        curve: Curves.ease);
+        duration: const Duration(milliseconds: 300), curve: Curves.ease);
   }
 
   @override

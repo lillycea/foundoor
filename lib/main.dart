@@ -1,10 +1,9 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:firebase_core/firebase_core.dart';
+import 'package:foundoor/utils/splash_screen.dart';
 import 'package:foundoor/utils/themes.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
-import 'package:get/get_navigation/src/root/get_material_app.dart';
 
 import 'controller/main_wrapper_controller.dart';
 import 'main_wrapper.dart';
@@ -29,7 +28,8 @@ class MyApp extends StatelessWidget {
       theme: Themes.lightTheme,
       darkTheme: Themes.darkTheme,
       themeMode: Get.put(MainWrapperController()).theme,
-      home: MainWrapper(),
+      home: SplashScreen(),
+     // MainWrapper(),
     );
   }
 }
