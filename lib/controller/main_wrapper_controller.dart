@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:foundoor/controller/upload_controller.dart';
 import 'package:foundoor/upload/upload_view.dart';
 import 'package:get/get.dart';
-import '../upload/upload_view.dart';
 import '../scanner/scan_view.dart';
 import '../trilateration/trilateration_view.dart';
 import 'bluetooth_controller.dart';
@@ -9,6 +9,7 @@ import 'bluetooth_controller.dart';
 class MainWrapperController extends GetxController {
   late PageController pageController;
   BluetoothController bluetoothController = BluetoothController();
+  UploadController uploadController = UploadController();
   RxInt currentPage = 0.obs;
   RxBool isDarkTheme = false.obs;
 

@@ -1,6 +1,7 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:foundoor/trilateration/trilateration_method.dart';
 
 
 class MapGridView extends StatelessWidget {
@@ -29,26 +30,28 @@ class MapGridView extends StatelessWidget {
           size: const Size(gridSize, gridSize),
           painter: CirclePainter(centerXList, centerYList, radiusList),
           child: Stack(
-            children: List.generate(
-              centerXList.length,
-              (index) {
-                final centerX = centerXList[index];
-                final centerY = centerYList[index];
+            children: <Widget>[
+              ...List.generate(
+                centerXList.length,
+                    (index) {
+                  final centerX = centerXList[index];
+                  final centerY = centerYList[index];
 
-                final pointX = centerX * gridSize / maxRadius + gridSize / 2;
-                final pointY = centerY * gridSize / maxRadius + gridSize / 2;
+                  final pointX = centerX * gridSize / maxRadius + gridSize / 2;
+                  final pointY = centerY * gridSize / maxRadius + gridSize / 2;
 
-                return Positioned(
-                  left: pointX - pointSize / 2,
-                  top: pointY - pointSize / 2,
-                  child: GestureDetector(
-                    onTap: () {
-                      print("hello");
-                    },
-                  ),
-                );
-              },
-            ),
+                  return Positioned(
+                    left: pointX - pointSize / 2,
+                    top: pointY - pointSize / 2,
+                    child: GestureDetector(
+                      onTap: () {
+                        print("hello");
+                      },
+                    ),
+                  );
+                },
+              ),
+            ],
           ),
         ),
       ),
@@ -81,6 +84,11 @@ class CirclePainter extends CustomPainter {
       ..strokeWidth = 1;
     //..isAntiAlias = true;
 
+    final Paint pointPaint = Paint()
+      ..color = Colors.red
+      ..style = PaintingStyle.fill
+      ..strokeWidth = 1;
+
     for (int i = 0; i < centerXList.length; i++) {
       final centerX = centerXList[i];
       final centerY = centerYList[i];
@@ -101,6 +109,14 @@ class CirclePainter extends CustomPainter {
         positionPaint,
       );
 
+      var position = trilaterationMethod(centerXList, centerYList, radiusList);
+
+      if(position.x >= 0.0){
+        if(position.y >= 0.0){
+          canvas.drawCircle(Offset(position.x*43, position.y*43), 3, pointPaint);
+        }
+      }
+
     }
 
   }
@@ -110,4 +126,3 @@ class CirclePainter extends CustomPainter {
     return true;
   }
 }
-
