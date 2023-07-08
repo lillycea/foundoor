@@ -9,6 +9,7 @@ class SelectedDevice {
   double centerX;
   double centerY;
   num distance;
+  double alpha;
 
   SelectedDevice({
     required this.result,
@@ -16,7 +17,8 @@ class SelectedDevice {
     this.rssi = -60,
     this.centerX = 2.0,
     this.centerY = 2.0,
-    this.distance = 0.0,
+    this.distance = 1.0,
+    this.alpha = -60.0
   });
 }
 

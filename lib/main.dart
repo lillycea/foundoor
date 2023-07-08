@@ -6,7 +6,6 @@ import 'package:foundoor/utils/themes.dart';
 import 'package:get/get.dart';
 
 import 'controller/main_wrapper_controller.dart';
-import 'main_wrapper.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -28,7 +27,7 @@ class MyApp extends StatelessWidget {
       theme: Themes.lightTheme,
       darkTheme: Themes.darkTheme,
       themeMode: Get.put(MainWrapperController()).theme,
-      home: SplashScreen(),
+      home: const SplashScreen(),
      // MainWrapper(),
     );
   }

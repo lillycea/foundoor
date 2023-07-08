@@ -61,9 +61,6 @@ class ScanView extends StatelessWidget {
                           final title =
                               'Device ${index + 1}${deviceName.isNotEmpty ? ': $deviceName' : ''}';
                           final uuidList = data.advertisementData.serviceUuids;
-                          final isActive = toggleStates.containsKey(index)
-                              ? toggleStates[index]!.value == 0
-                              : initialLabelIndex == 0;
                           if (deviceName == 'Holy-IOT') {
                             controller.updateActivate(result: data);
                           }

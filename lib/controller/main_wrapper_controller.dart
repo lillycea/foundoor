@@ -13,11 +13,8 @@ class MainWrapperController extends GetxController {
   RxInt currentPage = 0.obs;
   RxBool isDarkTheme = false.obs;
 
-  List<Widget> pages = [
-    const ScanView(),
-    const UploadView(),
-    const TrilaterationView(),
-  ];
+
+  List<Widget> pages = [];
 
   ThemeMode get theme => Get.isDarkMode ? ThemeMode.dark : ThemeMode.light;
 
@@ -38,10 +35,15 @@ class MainWrapperController extends GetxController {
 
   @override
   void onInit() {
-    pageController = PageController(initialPage: 0);
     super.onInit();
-  }
+    pageController = PageController(initialPage: 0);
 
+    pages = [
+      const ScanView(),
+      const UploadView(),
+      const TrilaterationView(),
+    ];
+  }
   @override
   void dispose() {
     pageController.dispose();

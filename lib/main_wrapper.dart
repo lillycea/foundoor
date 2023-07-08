@@ -11,8 +11,6 @@ class MainWrapper extends StatelessWidget {
   final MainWrapperController _mainWrapperController =
       Get.find<MainWrapperController>();
 
-  final ValueNotifier<bool> _isMenuOpen = ValueNotifier<bool>(false);
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
