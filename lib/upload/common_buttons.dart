@@ -19,8 +19,7 @@ class CommonButtons extends StatelessWidget {
     return ElevatedButton(
       onPressed: onTap,
       style: ElevatedButton.styleFrom(
-        elevation: 5,
-        primary: backgroundColor,
+        elevation: 5, backgroundColor: backgroundColor,
         shape: const StadiumBorder(),
       ),
       child: Padding(

@@ -23,6 +23,7 @@ class SelectedDevice {
 }
 
 class BluetoothController extends GetxController {
+
   List<ScanResult> results = [];
   List<SelectedDevice> selectedDevices = [];
   List<String> activated = [];
@@ -44,6 +45,5 @@ class BluetoothController extends GetxController {
     WidgetsBinding.instance!.addPostFrameCallback((_) => update());
   }
 
-  Stream<List<SelectedDevice>> get selectedDevicesStream =>
-      Stream.value(selectedDevices);
+  Stream<List<SelectedDevice>> get selectedDevicesStream => Stream.value(selectedDevices);
 }

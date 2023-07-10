@@ -1,9 +1,7 @@
 import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:foundoor/trilateration/trilateration_method.dart';
 import 'package:get/get.dart';
-
 import '../../controller/main_wrapper_controller.dart';
 
 
@@ -88,14 +86,12 @@ class _MapGridViewState extends State<MapGridView>
     const double maxRadius = 8;
 
     return SafeArea(
-     // width: gridSize,
-     // height: gridSize,
       child: Stack(
         children: <Widget>[
           Align(
             alignment: Alignment.center,
             child:
-            Image.network(imageUrl, fit: BoxFit.cover,),
+            imageUrl != '' ? Image.network(imageUrl, fit: BoxFit.cover,) : Image.asset('assets/images/placeholder.jpeg'),
           ),
           const SizedBox(),
           CustomPaint(
@@ -202,14 +198,14 @@ class CirclePainter extends CustomPainter {
           '(${position.x.toStringAsFixed(2)}, ${position.y.toStringAsFixed(2)})',
           style: const TextStyle(
             color: Colors.black,
-            fontSize: 10,
+            fontSize: 9,
           ),
         ),
-        textDirection: TextDirection.rtl,
+        textDirection: TextDirection.ltr,
       );
       positionTextPainter.layout(
         minWidth: 0,
-        maxWidth: size.width,
+        maxWidth: 65,
       );
 
       if (position.x >= 0.0 && position.y >= 0.0) {

@@ -39,7 +39,6 @@ class _SplashScreenState extends State<SplashScreen> {
               'assets/images/logo-splash-screen.png',
               width: 500,
               height: 500,
-              // Adjust the width and height based on your image size
             ),
             const SizedBox(height: 20),
             const Text(

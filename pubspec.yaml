@@ -61,6 +61,7 @@ dependencies:
   firebase_storage: ^11.2.4
   cached_network_image: ^3.2.3
   shared_preferences: ^2.2.0
+  flutter_svg: ^1.0.3
 
 dev_dependencies:
   flutter_test:
@@ -84,6 +85,7 @@ flutter:
     - assets/images/logo-splash-screen.png
     - assets/images/splash-screen-logo.png
     - assets/images/drop-file.png
+    - assets/images/placeholder.jpeg
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in
   # the material Icons class.

@@ -19,8 +19,7 @@ class SelectPhoto extends StatelessWidget {
     return ElevatedButton(
       onPressed: onTap,
       style: ElevatedButton.styleFrom(
-        elevation: 9,
-        primary: Colors.grey.shade200,
+        elevation: 9, backgroundColor: Colors.grey.shade200,
         shape: const StadiumBorder(),
       ),
       child: Padding(

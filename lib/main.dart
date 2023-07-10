@@ -28,7 +28,6 @@ class MyApp extends StatelessWidget {
       darkTheme: Themes.darkTheme,
       themeMode: Get.put(MainWrapperController()).theme,
       home: const SplashScreen(),
-     // MainWrapper(),
     );
   }
 }

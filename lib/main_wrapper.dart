@@ -41,10 +41,8 @@ class MainWrapper extends StatelessWidget {
           margin: const EdgeInsets.symmetric(horizontal: 25, vertical: 23),
           decoration: BoxDecoration(
               color:
-                  //_mainWrapperController.isDarkTheme.value ?
                   ColorConstants.appColor.withOpacity(0.9),
-              //: hexToColor('#126D76').withOpacity(0.8),
-              borderRadius: BorderRadius.all(Radius.circular(24))),
+              borderRadius: const BorderRadius.all(Radius.circular(24))),
           child: Obx(
             () => Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -88,28 +86,22 @@ class MainWrapper extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           children: [
             Container(
-              margin: EdgeInsets.only(bottom: 2),
+              margin: const EdgeInsets.only(bottom: 2),
               height: 2,
               width: _mainWrapperController.currentPage == page ? 25 : 0,
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                   color: Colors.white,
                   borderRadius: BorderRadius.all(Radius.circular(2))),
             ),
             Icon(
               icon,
               color: Colors.white,
-              /*_mainWrapperController.currentPage == page
-                  ? ColorConstants.appColor
-                  : Colors.grey,*/
               size: 22,
             ),
             Text(
               label,
               style: TextStyle(
                   color: Colors.white,
-                  /*_mainWrapperController.currentPage == page
-                      ? ColorConstants.appColor
-                      : Colors.grey,*/
                   fontSize: 12,
                   fontWeight: _mainWrapperController.currentPage == page
                       ? FontWeight.w600

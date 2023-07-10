@@ -1,5 +1,5 @@
 import 'dart:io';
-
+import 'package:path/path.dart' as p;
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -9,8 +9,8 @@ import 'package:foundoor/upload/selected_photo_options_screen.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
 import '../controller/main_wrapper_controller.dart';
-import '../trilateration/trilateration_view.dart';
 import '../utils/color_constants.dart';
 
 class UploadView extends StatefulWidget {
@@ -31,11 +31,11 @@ class UploadViewState extends State<UploadView> {
   @override
   void initState() {
     super.initState();
+    clearImageFromLocalStorage();
     loadImageFromLocalStorage().then((path) {
-      if (path != null) {
+      if (path != null && _hasStoredImage == true) {
         setState(() {
           _image = XFile(path);
-          _hasStoredImage = true;
         });
       }
     });
@@ -69,13 +69,31 @@ class UploadViewState extends State<UploadView> {
       await saveImageToLocalStorage(_image!.path);
     } on PlatformException catch (e) {
       Navigator.of(context).pop();
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Container(
+            padding: const EdgeInsets.all(16),
+            height: 40,
+            decoration: const BoxDecoration(
+              color: Color(0xFFC72C41),
+              borderRadius: BorderRadius.all(
+                Radius.circular(20),
+              ),
+            ),
+            child: const Text("An error occured uploading planimetry!",
+                style: TextStyle(fontSize: 25, color: Colors.white)),
+          ),
+        ),
+      );
     }
   }
 
   Future<void> uploadFile() async {
     final path = 'uploadedPlanimetry/${_image!.name}';
     final file = File(_image!.path!);
+    final validFormats = ['.jpeg', '.jpg', '.png'];
 
+    final extension = p.extension(file.path).toLowerCase();
     final ref = FirebaseStorage.instance.ref().child(path);
     uploadTask = ref.putFile(file);
 
@@ -89,7 +107,65 @@ class UploadViewState extends State<UploadView> {
       mainWrapperController.uploadController.getUrlImage(getImage: _downloadUrl!);
     });
 
+
+    if (!validFormats.contains(extension)) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Container(
+            padding: const EdgeInsets.all(16),
+            height: 60,
+            decoration: const BoxDecoration(
+              color: Colors.red,
+              borderRadius: BorderRadius.all(
+                Radius.circular(25),
+              ),
+            ),
+            child: const Text(
+              "Invalid file format! Only JPEG and PNG are allowed.",
+              style: TextStyle(fontSize: 18, color: Colors.white),
+            ),
+          ),
+          behavior: SnackBarBehavior.floating,
+          backgroundColor: Colors.transparent,
+          elevation: 0,
+        ),
+      );
+      return;
+    }
+
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Container(
+          padding: const EdgeInsets.all(16),
+          height: 55,
+          decoration: const BoxDecoration(
+            color: Colors.green,
+            borderRadius: BorderRadius.all(
+              Radius.circular(40),
+            ),
+          ),
+          child: const Row(
+            children: [
+              Icon(
+                Icons.done,
+                color: Colors.white,
+                weight: 18,
+              ),
+              SizedBox(width: 8),
+              Text(
+                "Planimetry upload done successfully!",
+                style: TextStyle(fontSize: 18, color: Colors.white),
+              ),
+            ],
+          ),
+        ),
+        behavior: SnackBarBehavior.floating,
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+      ),
+    );
   }
+
 
   void _showSelectPhotoOptions(BuildContext context) {
     showModalBottomSheet(
@@ -135,10 +211,13 @@ class UploadViewState extends State<UploadView> {
                     children: [
                       Text(
                         "Update File",
-                        style: Theme.of(context).textTheme.headlineMedium!.copyWith(
-                          color: ColorConstants.appColor,
-                          fontWeight: FontWeight.w900,
-                        ),
+                        style: Theme.of(context)
+                            .textTheme
+                            .headlineMedium!
+                            .copyWith(
+                              color: ColorConstants.appColor,
+                              fontWeight: FontWeight.w900,
+                            ),
                       ),
                       const SizedBox(height: 5),
                       const Text(
@@ -165,39 +244,34 @@ class UploadViewState extends State<UploadView> {
                                 child: Center(
                                   child: _hasStoredImage
                                       ? Expanded(
-                                    child: Column(
-                                      mainAxisAlignment: MainAxisAlignment.center,
-                                      children: [
-                                        Image.file(File(_image!.path)),
-                                        const SizedBox(height: 15),
-                                        SelectPhoto(
-                                          onTap: () => uploadFile(),
-                                          icon: Icons.upload_rounded,
-                                          textLabel: 'Upload selected image',
-                                        ),
-                                      ],
-                                    ),
-                                  )
+                                          child: Column(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                            children: [
+                                              Image.file(File(_image!.path)),
+                                              const SizedBox(height: 15),
+                                              SelectPhoto(
+                                                onTap: () => uploadFile(),
+                                                icon: Icons.upload_rounded,
+                                                textLabel:
+                                                    'Upload selected image',
+                                              ),
+                                            ],
+                                          ),
+                                        )
                                       : Column(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Image.asset(
-                                        'assets/images/drop-file.png',
-                                        width: 300.0,
-                                        height: 300.0,
-                                        fit: BoxFit.contain,
-                                      ),
-                                      const SizedBox(height: 15),
-                                      SelectPhoto(
-                                        onTap: () {
-                                          clearImageFromLocalStorage();
-                                          _showSelectPhotoOptions(context);
-                                        },
-                                        icon: Icons.upload_rounded,
-                                        textLabel: 'Upload photo',
-                                      ),
-                                    ],
-                                  ),
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          children: [
+                                            Image.asset(
+                                              'assets/images/drop-file.png',
+                                              width: 300.0,
+                                              height: 300.0,
+                                              fit: BoxFit.contain,
+                                            ),
+                                            const SizedBox(height: 15),
+                                          ],
+                                        ),
                                 ),
                               ),
                             ),

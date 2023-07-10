@@ -48,7 +48,6 @@ class ScanView extends StatelessWidget {
                   stream: controller.scanResults,
                   builder: (context, snapshot) {
                     if (snapshot.hasData) {
-                      final toggleStates = <int, RxInt>{};
                       return ListView.builder(
                         shrinkWrap: true,
                         itemCount: snapshot.data!.length,
@@ -70,7 +69,7 @@ class ScanView extends StatelessWidget {
                               child: Icon(
                                 size: 22,
                                 Icons.bluetooth_audio_outlined,
-                                color: Colors.black87,
+                                color: Colors.blue,
                               ),
                             ),
                             title: Text(title),
@@ -93,29 +92,6 @@ class ScanView extends StatelessWidget {
                                     const Row(
                                       children: [
                                         Spacer(),
-                                        /*ToggleSwitch(
-                                           minWidth: 100.0,
-                                           cornerRadius: 20.0,
-                                           activeBgColors: [[ColorConstants.appColor!], [ColorConstants.gray100!]],
-                                           activeFgColor: Colors.white,
-                                           inactiveBgColor: ColorConstants.gray200,
-                                           inactiveFgColor: Colors.white,
-                                           initialLabelIndex: isActive ? 0 : 1,
-                                           icons: [Icons.done, Icons.bluetooth_disabled_outlined],
-                                           totalSwitches: 2,
-                                           labels: ['Active', 'Inactive'],
-                                           radiusStyle: true,
-                                           onToggle: (int? index) {
-                                             final toggleIndex = index ?? 0;
-                                             print("device selezionati - 1" +
-                                                 data.toString());
-                                             if(index!=null){
-                                             toggleStates[index] = RxInt(toggleIndex);
-                                             controller.updateDeviceList(
-                                                 scanResult: data,);
-                                                }
-                                             },
-                                          ),*/
                                       ],
                                     ),
                                   ],
