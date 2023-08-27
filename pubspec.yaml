@@ -47,7 +47,7 @@ dependencies:
   rolling_switch: ^0.0.2
   flutter_toggle_tab: ^1.2.0
   widget_and_text_animator: ^1.0.9
-  flutter_spinbox: ^0.9.0
+  flutter_spinbox: ">=0.9.0 <0.14.0"
   toggle_switch: ^2.1.0
   zoom_widget: ^0.2.1
   matrix2d: ^1.0.2
