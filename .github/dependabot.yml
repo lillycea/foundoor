@@ -1,7 +1,9 @@
 version: 2
 enable-beta-ecosystems: true
 updates:
-  - package-ecosystem: "pub"
+  - package-ecosystem: "flutter"
     directory: "/"
     schedule:
       interval: "daily"
+    labels:
+      - "dependencies"
