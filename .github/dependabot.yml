@@ -7,3 +7,7 @@ updates:
       interval: "daily"
     labels:
       - "dependencies"
+    target-branch: "develop"
+    assignees:
+      - "lillycea"
+    versioning-strategy: widen
