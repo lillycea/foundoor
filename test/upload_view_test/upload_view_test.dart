@@ -1,5 +1,4 @@
-import 'dart:io';
-import 'package:firebase_storage_mocks/firebase_storage_mocks.dart';
+//import 'package:firebase_storage_mocks/firebase_storage_mocks.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_blue_plus/flutter_blue_plus.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -12,7 +11,7 @@ import 'package:foundoor/upload/upload_view.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:mockito/mockito.dart';
-import 'package:flutter/services.dart' show rootBundle;
+//import 'package:flutter/services.dart' show rootBundle;
 
 
 class MockUploadController extends GetxController
@@ -32,7 +31,7 @@ void main() {
   group('UploadView Widget Test', () {
     final MockUploadController uploadController = MockUploadController();
     final MockBluetoothWithoutResponseController bluetoothController = MockBluetoothWithoutResponseController();
-    final storage = MockFirebaseStorage();
+    //final storage = MockFirebaseStorage();
     final imagePicker = MockImagePicker();
     setUpAll(() {
 
