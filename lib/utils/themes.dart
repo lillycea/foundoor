@@ -25,52 +25,52 @@ class Themes {
       progressIndicatorTheme:
           const ProgressIndicatorThemeData(color: Colors.red),
       textTheme: TextTheme(
-          headline1: const TextStyle(
+          displayLarge: const TextStyle(
               letterSpacing: -1.5,
               fontSize: 48,
               color: Colors.black,
               fontWeight: FontWeight.bold),
-          headline2: const TextStyle(
+          displayMedium: const TextStyle(
               letterSpacing: -1.0,
               fontSize: 40,
               color: Colors.black,
               fontWeight: FontWeight.bold),
-          headline3: const TextStyle(
+          displaySmall: const TextStyle(
               letterSpacing: -1.0,
               fontSize: 32,
               color: Colors.black,
               fontWeight: FontWeight.bold),
-          headline4: const TextStyle(
+          headlineMedium: const TextStyle(
               letterSpacing: -1.0,
               color: Colors.black,
               fontSize: 28,
               fontWeight: FontWeight.w600),
-          headline5: const TextStyle(
+          headlineSmall: const TextStyle(
               letterSpacing: -1.0,
               color: Colors.black,
               fontSize: 24,
               fontWeight: FontWeight.w500),
-          headline6: const TextStyle(
+          titleLarge: const TextStyle(
               color: Colors.black, fontSize: 22, fontWeight: FontWeight.w600),
-          subtitle1: const TextStyle(
+          titleMedium: const TextStyle(
               color: Colors.black, fontSize: 17, fontWeight: FontWeight.w500),
-          subtitle2: const TextStyle(
+          titleSmall: const TextStyle(
               color: Colors.black, fontSize: 14, fontWeight: FontWeight.w500),
-          bodyText1: TextStyle(
+          bodyLarge: TextStyle(
               color: Colors.grey.shade700,
               fontSize: 16,
               fontWeight: FontWeight.w400),
-          bodyText2: TextStyle(
+          bodyMedium: TextStyle(
               color: Colors.grey.shade600,
               fontSize: 14,
               fontWeight: FontWeight.w400),
-          button: const TextStyle(
+          labelLarge: const TextStyle(
               color: Colors.white, fontSize: 14, fontWeight: FontWeight.w600),
-          caption: TextStyle(
+          bodySmall: TextStyle(
               color: Colors.grey.shade800,
               fontSize: 12,
               fontWeight: FontWeight.w400),
-          overline: TextStyle(
+          labelSmall: TextStyle(
               color: Colors.grey.shade700,
               fontSize: 10,
               fontWeight: FontWeight.w400,
@@ -87,7 +87,6 @@ class Themes {
       elevation: 0,
       iconTheme: const IconThemeData(color: Colors.white),
     ),
-    bottomAppBarColor: ColorConstants.gray800,
     inputDecorationTheme: InputDecorationTheme(
         border: OutlineInputBorder(
             borderSide: BorderSide.none,
@@ -99,60 +98,60 @@ class Themes {
     progressIndicatorTheme:
         const ProgressIndicatorThemeData(color: Colors.white),
     textTheme: TextTheme(
-        headline1: TextStyle(
+        displayLarge: TextStyle(
             letterSpacing: -1.5,
             fontSize: 48,
             color: Colors.grey.shade50,
             fontWeight: FontWeight.bold),
-        headline2: TextStyle(
+        displayMedium: TextStyle(
             letterSpacing: -1.0,
             fontSize: 40,
             color: Colors.grey.shade50,
             fontWeight: FontWeight.bold),
-        headline3: TextStyle(
+        displaySmall: TextStyle(
             letterSpacing: -1.0,
             fontSize: 32,
             color: Colors.grey.shade50,
             fontWeight: FontWeight.bold),
-        headline4: TextStyle(
+        headlineMedium: TextStyle(
             letterSpacing: -1.0,
             color: Colors.grey.shade50,
             fontSize: 28,
             fontWeight: FontWeight.w600),
-        headline5: TextStyle(
+        headlineSmall: TextStyle(
             letterSpacing: -1.0,
             color: Colors.grey.shade50,
             fontSize: 24,
             fontWeight: FontWeight.w500),
-        headline6: TextStyle(
+        titleLarge: TextStyle(
             color: Colors.grey.shade50,
             fontSize: 22,
             fontWeight: FontWeight.w500),
-        subtitle1: TextStyle(
+        titleMedium: TextStyle(
             color: Colors.grey.shade50,
             fontSize: 17,
             fontWeight: FontWeight.w500),
-        subtitle2: TextStyle(
+        titleSmall: TextStyle(
             color: Colors.grey.shade50,
             fontSize: 14,
             fontWeight: FontWeight.w500),
-        bodyText1: TextStyle(
+        bodyLarge: TextStyle(
             color: Colors.grey.shade50,
             fontSize: 16,
             fontWeight: FontWeight.w400),
-        bodyText2: TextStyle(
+        bodyMedium: TextStyle(
             color: Colors.grey.shade50,
             fontSize: 14,
             fontWeight: FontWeight.w400),
-        button: const TextStyle(
+        labelLarge: const TextStyle(
             color: Colors.white, fontSize: 14, fontWeight: FontWeight.w600),
-        caption: TextStyle(
+        bodySmall: TextStyle(
             color: Colors.grey.shade50,
             fontSize: 12,
             fontWeight: FontWeight.w500),
-        overline: TextStyle(
+        labelSmall: TextStyle(
             color: Colors.grey.shade50,
             fontSize: 10,
-            fontWeight: FontWeight.w400)),
+            fontWeight: FontWeight.w400)), bottomAppBarTheme: BottomAppBarTheme(color: ColorConstants.gray800),
   );
 }

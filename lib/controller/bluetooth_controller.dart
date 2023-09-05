@@ -42,7 +42,7 @@ class BluetoothController extends GetxController {
         device.result.device.id == selectedDevice.result.device.id)) {
       selectedDevices.add(selectedDevice);
     }
-    WidgetsBinding.instance!.addPostFrameCallback((_) => update());
+    WidgetsBinding.instance.addPostFrameCallback((_) => update());
   }
 
   Stream<List<SelectedDevice>> get selectedDevicesStream => Stream.value(selectedDevices);

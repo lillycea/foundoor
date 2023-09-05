@@ -8,11 +8,13 @@ import 'bluetooth_controller.dart';
 
 class MainWrapperController extends GetxController {
   late PageController pageController;
-  BluetoothController bluetoothController = BluetoothController();
-  UploadController uploadController = UploadController();
+  late BluetoothController bluetoothController;
+  late UploadController uploadController;
+
+  MainWrapperController(this.bluetoothController, this.uploadController);
+
   RxInt currentPage = 0.obs;
   RxBool isDarkTheme = false.obs;
-
 
   List<Widget> pages = [];
 

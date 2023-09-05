@@ -67,7 +67,7 @@ class UploadViewState extends State<UploadView> {
         Navigator.of(context).pop();
       });
       await saveImageToLocalStorage(_image!.path);
-    } on PlatformException catch (e) {
+    } on PlatformException {
       Navigator.of(context).pop();
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
@@ -80,7 +80,7 @@ class UploadViewState extends State<UploadView> {
                 Radius.circular(20),
               ),
             ),
-            child: const Text("An error occured uploading planimetry!",
+            child: const Text("An error occurred uploading planimetry!",
                 style: TextStyle(fontSize: 25, color: Colors.white)),
           ),
         ),
@@ -90,12 +90,14 @@ class UploadViewState extends State<UploadView> {
 
   Future<void> uploadFile() async {
     final path = 'uploadedPlanimetry/${_image!.name}';
-    final file = File(_image!.path!);
+    final file = File(_image!.path);
     final validFormats = ['.jpeg', '.jpg', '.png'];
 
     final extension = p.extension(file.path).toLowerCase();
     final ref = FirebaseStorage.instance.ref().child(path);
     uploadTask = ref.putFile(file);
+
+    final scaffoldMessenger = ScaffoldMessenger.of(context);
 
     final snapshot = await uploadTask!.whenComplete(() {});
 
@@ -107,9 +109,8 @@ class UploadViewState extends State<UploadView> {
       mainWrapperController.uploadController.getUrlImage(getImage: _downloadUrl!);
     });
 
-
     if (!validFormats.contains(extension)) {
-      ScaffoldMessenger.of(context).showSnackBar(
+      scaffoldMessenger.showSnackBar(
         SnackBar(
           content: Container(
             padding: const EdgeInsets.all(16),
@@ -132,8 +133,7 @@ class UploadViewState extends State<UploadView> {
       );
       return;
     }
-
-    ScaffoldMessenger.of(context).showSnackBar(
+    scaffoldMessenger.showSnackBar(
       SnackBar(
         content: Container(
           padding: const EdgeInsets.all(16),
