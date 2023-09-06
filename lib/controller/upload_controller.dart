@@ -7,7 +7,7 @@ class UploadController extends GetxController {
 
   Future getUrlImage({required String getImage}) async {
     file = getImage;
-    WidgetsBinding.instance!.addPostFrameCallback((_) => update());
+    WidgetsBinding.instance.addPostFrameCallback((_) => update());
   }
 
 }
