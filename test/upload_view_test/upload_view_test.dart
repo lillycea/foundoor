@@ -1,4 +1,3 @@
-//import 'package:firebase_storage_mocks/firebase_storage_mocks.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_blue_plus/flutter_blue_plus.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -11,7 +10,6 @@ import 'package:foundoor/upload/upload_view.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:mockito/mockito.dart';
-//import 'package:flutter/services.dart' show rootBundle;
 
 
 class MockUploadController extends GetxController
@@ -31,22 +29,6 @@ void main() {
   group('UploadView Widget Test', () {
     final MockUploadController uploadController = MockUploadController();
     final MockBluetoothWithoutResponseController bluetoothController = MockBluetoothWithoutResponseController();
-    //final storage = MockFirebaseStorage();
-    final imagePicker = MockImagePicker();
-    setUpAll(() {
-
-     /* when(imagePicker.pickImage(source: ImageSource.gallery)).thenAnswer((_) async {
-        final byteData = await rootBundle.load('./assets/images/placeholder.jpeg');
-        final tempDir = Directory.systemTemp;
-        final tempFile = File('${tempDir.path}/placeholder.jpeg');
-        await tempFile.writeAsBytes(byteData.buffer
-            .asUint8List(byteData.offsetInBytes, byteData.lengthInBytes), flush: true);
-        XFile xFile = XFile(tempFile.path);
-        return xFile;
-      });*/
-
-      Get.lazyPut<ImagePicker>(() => imagePicker);
-    });
 
     tearDown(() {
       Get.reset();
@@ -85,38 +67,6 @@ void main() {
       expect(find.text('Use a Camera'), findsOneWidget);
       expect(find.text('Browse Gallery'), findsOneWidget);
       });
-
-    /*testWidgets('Test Upload file', (WidgetTester tester) async {
-      Get.put(MainWrapperController(bluetoothController, uploadController));
-      await tester.pumpWidget(
-        const MaterialApp(
-          home: UploadView(),
-        ),
-      );
-      expect(find.byType(GestureDetector), findsOneWidget);
-      await tester.tap(find.byType(GestureDetector));
-      await tester.pump();
-      expect(find.byType(SelectedPhotoOptionsScreen), findsOneWidget);
-      expect(find.byType(SelectPhoto), findsWidgets);
-      await tester.pumpAndSettle();
-      expect(find.text('Use a Camera'), findsOneWidget);
-      expect(find.text('Browse Gallery'), findsOneWidget);
-      await tester.tap(find.text('Browse Gallery'));
-
-      await tester.pumpAndSettle();
-
-      expect(find.text('Upload selected image'), findsOneWidget);
-      await tester.tap(find.text('Upload selected image'));
-
-      await tester.pumpAndSettle();
-      const filename = 'placeholder.jpeg';
-      final storageRef = storage.ref().child(filename);
-      final localImage = await rootBundle.load("assets/images/$filename");
-      await storageRef.putData(localImage.buffer.asUint8List());
-      await tester.pump();
-
-       expect(find.text("Planimetry upload done successfully!"), findsOneWidget);
-    });*/
   });
 }
 

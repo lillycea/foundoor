@@ -23,7 +23,6 @@ class SelectedDevice {
 }
 
 class BluetoothController extends GetxController {
-
   List<ScanResult> results = [];
   List<SelectedDevice> selectedDevices = [];
   List<String> activated = [];
